@@ -77,10 +77,10 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Links
 SUPPORT_LINK = environ.get('SUPPORT_LINK', 'https://t.me/movies_group7')
-UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/shivacharan7773')
+UPDATES_LINK = environ.get('UPDATES_LINK', 'https://t.me/moviehiap')
 FILMS_LINK = environ.get('FILMS_LINK', 'https://t.me/moviehiap')
-TUTORIAL = environ.get("TUTORIAL", "https://t.me/moviehiap")
-VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/moviehiap")
+TUTORIAL = environ.get("TUTORIAL", "https://t.me/moviehiap/42")
+VERIFY_TUTORIAL = environ.get("VERIFY_TUTORIAL", "https://t.me/moviehiap/42")
 
 # Bot settings
 DELETE_TIME = int(environ.get('DELETE_TIME', 300)) # Add time in seconds 
@@ -105,7 +105,7 @@ PROTECT_CONTENT = is_enabled('PROTECT_CONTENT', False)
 LONG_IMDB_DESCRIPTION = is_enabled("LONG_IMDB_DESCRIPTION", False)
 LINK_MODE = is_enabled("LINK_MODE", True)
 AUTO_FILTER = is_enabled('AUTO_FILTER', True)
-IMDB = is_enabled('IMDB', True)
+IMDB = is_enabled('IMDB', False)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
 SHORTLINK = is_enabled('SHORTLINK', False)
 
