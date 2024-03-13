@@ -64,10 +64,6 @@ async def start(client, message):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await message.reply_text(
-            text="𝐌𝐨𝐯𝐢𝐞 𝐆𝐫𝐨𝐮𝐩 - <a href='https://t.me/movies_group7'>𝐋𝐚𝐭𝐞𝐬𝐭 𝐌𝐨𝐯𝐢𝐞</a>",
-            parse_mode=enums.ParseMode.HTML
-        )
         return
 
     mc = message.command[1]
@@ -583,10 +579,6 @@ async def plans_cmd_handler(client, message):
         caption="**Pʀᴇᴍɪᴜᴍ Fᴇᴀᴛᴜʀᴇs 🎁\n\n☆ No Need To Verify\n☆ Ad Free Experience\n☆ Unlimited Movie And Series",
         reply_markup=reply_markup
     )
-    await message.reply_text(
-        text="𝐌𝐨𝐯𝐢𝐞 𝐆𝐫𝐨𝐮𝐩 - <a href='https://t.me/movies_group7'>𝐋𝐚𝐭𝐞𝐬𝐭 𝐌𝐨𝐯𝐢𝐞</a>",
-        parse_mode=enums.ParseMode.HTML
-    )
         
 @Client.on_message(filters.command("my_plan"))
 async def check_plans_cmd(client, message):
@@ -606,7 +598,4 @@ async def check_plans_cmd(client, message):
         await message.reply_text(f"**😢 You Don't Have Any Premium Subscription.\n\n Check Out Our Premium /plans**",reply_markup=reply_markup)
         await asyncio.sleep(2)
         await m.delete()
-        await message.reply_text(
-            text="𝐌𝐨𝐯𝐢𝐞 𝐆𝐫𝐨𝐮𝐩 - <a href='https://t.me/movies_group7'>𝐋𝐚𝐭𝐞𝐬𝐭 𝐌𝐨𝐯𝐢𝐞</a>",
-            parse_mode=enums.ParseMode.HTML
         )
