@@ -100,29 +100,28 @@ async def start(client, message):
     else:
         pass
 
-    mc_split = mc.split("_", 2)
-    if len(mc_split) >= 2:
-        settings = await get_settings(int(mc_split[1]))
-    else:
-        # Handle the case where mc_split doesn't contain enough elements
-        # You might want to log an error or handle it based on your application's logic
-        print("Error: Insufficient elements in mc_split")
-        return
+mc_split = mc.split("_", 2)
+if len(mc_split) < 2:
+    print("Error: Insufficient elements in mc_split")
+    return  # Exit the function or handle the error appropriately
 
-    if settings.get('is_fsub', IS_FSUB):
-        btn = await is_subscribed(client, message, settings['fsub'])
-        if btn:
-            btn.append(
-                [InlineKeyboardButton("🔁 Try Again 🔁", callback_data=f"checksub#{mc}")]
-            )
-            reply_markup = InlineKeyboardMarkup(btn)
-            await message.reply_photo(
-                photo=random.choice(PICS),
-                caption=f"👋 Hello {message.from_user.mention},\n\nPlease join my 'Updates Channel' and try again. 😇",
-                reply_markup=reply_markup,
-                parse_mode=enums.ParseMode.HTML
-            )
-            return
+# Proceed with the rest of the code using mc_split
+settings = await get_settings(int(mc_split[1]))
+
+if settings.get('is_fsub', IS_FSUB):
+    btn = await is_subscribed(client, message, settings['fsub'])
+    if btn:
+        btn.append(
+            [InlineKeyboardButton("🔁 Try Again 🔁", callback_data=f"checksub#{mc}")]
+        )
+        reply_markup = InlineKeyboardMarkup(btn)
+        await message.reply_photo(
+            photo=random.choice(PICS),
+            caption=f"👋 Hello {message.from_user.mention},\n\nPlease join my 'Updates Channel' and try again. 😇",
+            reply_markup=reply_markup,
+            parse_mode=enums.ParseMode.HTML
+        )
+        return
         
     if mc.startswith('all'):
         _, grp_id, key = mc.split("_", 2)
