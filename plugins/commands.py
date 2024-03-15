@@ -169,11 +169,13 @@ async def start(client, message):
         if not await db.has_premium_access(message.from_user.id):
             link = await get_shortlink(settings['url'], settings['api'], f"https://t.me/{temp.U_NAME}?start=shortlink_{grp_id}_{file_id}")
             btn = [[
-                InlineKeyboardButton("♻️ Get File ♻️", url=link)
+                InlineKeyboardButton("📂 Dᴏᴡɴʟᴏᴀᴅ Nᴏᴡ 📂", url=link)
             ],[
-                InlineKeyboardButton("📍 ʜᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴᴋ 📍", url=settings['tutorial'])
+                InlineKeyboardButton("⁉️ Hᴏᴡ Tᴏ Dᴏᴡɴʟᴏᴀᴅ ⁉️", url=settings['tutorial'])
+            ],[
+                InlineKeyboardButton("🥇 ʙᴜʏ 🥇", url=f"https://t.me/{temp.U_NAME}?start=plans")
             ]]
-            await message.reply(f"📕Nᴀᴍᴇ ➠ : {files.file_name} \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\nNote: This message is deleted in 20 mins to avoid copyrights. Save the link to Somewhere else", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
+            await message.reply(f"📕Nᴀᴍᴇ ➠ : {files.file_name} \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {link}\n\nNote: This message is deleted in 20 mins to avoid copyrights. Save the link to Somewhere else", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
             await asyncio.sleep(600)
             await btn.edit("<b>Your message is successfully deleted!!!</b>")
             return
