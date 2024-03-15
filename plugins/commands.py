@@ -99,18 +99,17 @@ async def start(client, message):
             return
     else:
         pass
-
-mc_split = mc.split("_", 2)
-if len(mc_split) < 2:
-    print("Error: Insufficient elements in mc_split")
-    return  # Exit the function or handle the error appropriately
-
-# Proceed with the rest of the code using mc_split
-settings = await get_settings(int(mc_split[1]))
-
-if settings.get('is_fsub', IS_FSUB):
-    btn = await is_subscribed(client, message, settings['fsub'])
-    if btn:
+        
+    mc_split = mc.split("_", 2)
+    if len(mc_split) < 2:
+        print("Error: Insufficient elements in mc_split")
+        return  # Exit the function or handle the error appropriately
+            
+    settings = await get_settings(int(mc_split[1]))
+            
+    if settings.get('is_fsub', IS_FSUB):
+        btn = await is_subscribed(client, message, settings['fsub'])
+        if btn:
         btn.append(
             [InlineKeyboardButton("🔁 Try Again 🔁", callback_data=f"checksub#{mc}")]
         )
