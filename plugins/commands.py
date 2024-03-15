@@ -100,7 +100,15 @@ async def start(client, message):
     else:
         pass
 
-    settings = await get_settings(int(mc.split("_", 2)[1]))
+    mc_split = mc.split("_", 2)
+    if len(mc_split) >= 2:
+        settings = await get_settings(int(mc_split[1]))
+    else:
+        # Handle the case where mc_split doesn't contain enough elements
+        # You might want to log an error or handle it based on your application's logic
+        print("Error: Insufficient elements in mc_split")
+        return
+
     if settings.get('is_fsub', IS_FSUB):
         btn = await is_subscribed(client, message, settings['fsub'])
         if btn:
@@ -114,7 +122,7 @@ async def start(client, message):
                 reply_markup=reply_markup,
                 parse_mode=enums.ParseMode.HTML
             )
-            return 
+            return
         
     if mc.startswith('all'):
         _, grp_id, key = mc.split("_", 2)
