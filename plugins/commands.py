@@ -12,7 +12,7 @@ from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, de
 from database.users_chats_db import db
 from info import INDEX_CHANNELS, ADMINS, IS_VERIFY, VERIFY_TUTORIAL, VERIFY_EXPIRE, TUTORIAL, SHORTLINK_API, SHORTLINK_URL, AUTH_CHANNEL, DELETE_TIME, SUPPORT_LINK, UPDATES_LINK, LOG_CHANNEL, PICS, PROTECT_CONTENT, IS_STREAM, IS_FSUB, PAYMENT_QR
 from utils import get_settings, get_size, is_subscribed, is_check_admin, get_shortlink, get_verify_status, update_verify_status, save_group_settings, temp, get_readable_time, get_wish, get_seconds
-import re
+import re, asyncio
 import json
 import base64
 import sys
@@ -173,9 +173,9 @@ async def start(client, message):
             ],[
                 InlineKeyboardButton("📍 ʜᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴᴋ 📍", url=settings['tutorial'])
             ]]
-            await message.reply(f"<b>📕Nᴀᴍᴇ ➠ : <code>{files.file_name}</code> \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\n<i>Note: This message is deleted in 20 mins to avoid copyrights. Save the link to Somewhere else</i></b>", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
-            await asyncio.sleep(1200)
-            await k.edit("<b>Your message is successfully deleted!!!</b>")
+            await message.reply(f"📕Nᴀᴍᴇ ➠ : {files.file_name} \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {g}\n\nNote: This message is deleted in 20 mins to avoid copyrights. Save the link to Somewhere else", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
+            await asyncio.sleep(600)
+            await btn.edit("<b>Your message is successfully deleted!!!</b>")
             return
     else:
         pass
