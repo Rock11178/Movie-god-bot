@@ -172,16 +172,13 @@ async def start(client, message):
                 protect_content=settings['file_secure'],
                 reply_markup=InlineKeyboardMarkup(btn)
             )
-            btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>", reply_markup=InlineKeyboardMarkup(btn))
-            await asyncio.sleep(60)
+            reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
+            await asyncio.sleep(60)  # 10 minutes = 600 seconds
             try:
-                await btn_msg.delete()
-                for row in btn:
-                    for button in row:
-                        await button.delete()
-                        await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+                await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
+                await message.reply('Your All Files/Videos is successfully deleted!!!')
             except Exception as e:
-                print(f"An error occurred while deleting message: {e}")
+                print(f"An error occurred while deleting messages: {e}")
                 return
 
     type_, grp_id, file_id = mc.split("_", 2)
@@ -237,16 +234,13 @@ async def start(client, message):
         protect_content=settings['file_secure'],
         reply_markup=InlineKeyboardMarkup(btn)
     )
-    btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>", reply_markup=InlineKeyboardMarkup(btn))
-    await asyncio.sleep(60)
+    reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
+    await asyncio.sleep(60)  # 10 minutes = 600 seconds
     try:
-        await btn_msg.delete()
-        for row in btn:
-            for button in row:
-                await button.delete()
-                await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+        await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
+        await message.reply('Your All Files/Videos is successfully deleted!!!')
     except Exception as e:
-        print(f"An error occurred while deleting message: {e}")
+        print(f"An error occurred while deleting messages: {e}")
         return
 
 @Client.on_message(filters.command('index_channels') & filters.user(ADMINS))
