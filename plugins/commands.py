@@ -172,14 +172,16 @@ async def start(client, message):
                 protect_content=settings['file_secure'],
                 reply_markup=InlineKeyboardMarkup(btn)
             )
-            reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
-            await asyncio.sleep(60)  # 10 minutes = 600 seconds
-            try:
-                await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
-                await message.reply('Your All Files/Videos is successfully deleted!!!')
-            except Exception as e:
-                print(f"An error occurred while deleting messages: {e}")
-                return
+            if not reply_message:
+                reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
+                if sent_message:
+                    await asyncio.sleep(600)  # 10 minutes = 600 seconds
+                    try:
+                        await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
+                        await message.reply('Your All Files/Videos is successfully deleted!!!')
+                    except Exception as e:
+                        print(f"An error occurred while deleting messages: {e}")
+                        return
 
     type_, grp_id, file_id = mc.split("_", 2)
     files_ = await get_file_details(file_id)
@@ -234,14 +236,16 @@ async def start(client, message):
         protect_content=settings['file_secure'],
         reply_markup=InlineKeyboardMarkup(btn)
     )
-    reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
-    await asyncio.sleep(60)  # 10 minutes = 600 seconds
-    try:
-        await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
-        await message.reply('Your All Files/Videos is successfully deleted!!!')
-    except Exception as e:
-        print(f"An error occurred while deleting messages: {e}")
-        return
+    if not reply_message:
+        reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
+        if sent_message:
+            await asyncio.sleep(600)  # 10 minutes = 600 seconds
+            try:
+                await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
+                await message.reply('Your All Files/Videos is successfully deleted!!!')
+            except Exception as e:
+                print(f"An error occurred while deleting messages: {e}")
+                return
 
 @Client.on_message(filters.command('index_channels') & filters.user(ADMINS))
 async def channels_info(bot, message):
