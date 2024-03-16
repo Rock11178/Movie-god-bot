@@ -172,11 +172,14 @@ async def start(client, message):
                 protect_content=settings['file_secure'],
                 reply_markup=InlineKeyboardMarkup(btn)
             )
-            btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
-            await asyncio.sleep(60)
+            btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>", reply_markup=InlineKeyboardMarkup(btn))
+            await asyncio.sleep(300)
             try:
                 await btn_msg.delete()
-                await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+                for row in btn:
+                    for button in row:
+                        await button.delete()
+                        await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
             except Exception as e:
                 print(f"An error occurred while deleting message: {e}")
                 return
@@ -234,11 +237,14 @@ async def start(client, message):
         protect_content=settings['file_secure'],
         reply_markup=InlineKeyboardMarkup(btn)
     )
-    btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
-    await asyncio.sleep(60)
+    btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>", reply_markup=InlineKeyboardMarkup(btn))
+    await asyncio.sleep(300)
     try:
         await btn_msg.delete()
-        await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+        for row in btn:
+            for button in row:
+                await button.delete()
+                await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
     except Exception as e:
         print(f"An error occurred while deleting message: {e}")
         return
