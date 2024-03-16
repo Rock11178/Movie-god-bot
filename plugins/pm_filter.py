@@ -38,7 +38,6 @@ async def aks_downloader(bot, query):
 
 @Client.on_message(filters.group & filters.text & filters.incoming)
 async def give_filter(client, message):
-    await message.react(emoji=random.choice(REACTIONS))
     settings = await get_settings(message.chat.id)
     chatid = message.chat.id
     userid = message.from_user.id if message.from_user else None
@@ -160,7 +159,6 @@ async def give_filter(client, message):
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
-    await message.react(emoji=random.choice(REACTIONS))
     content = message.text
     user = message.from_user.first_name
     user_id = message.from_user.id
