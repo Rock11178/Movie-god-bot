@@ -175,7 +175,7 @@ async def start(client, message):
             if not reply_message:
                 reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
                 if sent_message:
-                    await asyncio.sleep(600)  # 10 minutes = 600 seconds
+                    await asyncio.sleep(30)  # 10 minutes = 600 seconds
                     try:
                         await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
                         await message.reply('Your All Files/Videos is successfully deleted!!!')
@@ -239,7 +239,7 @@ async def start(client, message):
     if not reply_message:
         reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
         if sent_message:
-            await asyncio.sleep(600)  # 10 minutes = 600 seconds
+            await asyncio.sleep(30)  # 10 minutes = 600 seconds
             try:
                 await client.delete_messages(chat_id=sent_message.chat.id, message_ids=[sent_message.message_id, reply_message.message_id])
                 await message.reply('Your All Files/Videos is successfully deleted!!!')
