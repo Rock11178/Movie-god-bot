@@ -151,7 +151,7 @@ async def give_filter(client, message):
             await auto_filter(client, message)
     else:
         k = await message.reply_text("Auto Filter Off! ❌")
-        await asyncio.sleep(5)
+        await asyncio.sleep(1)
         await k.delete()
         try:
             await message.delete()
@@ -437,7 +437,7 @@ async def advantage_spoll_choker(bot, query):
     else:
         await bot.send_message(LOG_CHANNEL, script.NO_RESULT_TXT.format(query.message.chat.title, query.message.chat.id, query.from_user.mention, search))
         k = await query.message.edit(f"👋 Hello {query.from_user.mention},\n\nI don't find <b>'{search}'</b> in my database. 😔")
-        await asyncio.sleep(60)
+        await asyncio.sleep(1)
         await k.delete()
         try:
             await query.message.reply_to_message.delete()
@@ -998,7 +998,7 @@ async def advantage_spell_chok(message):
         movies = await get_poster(search, bulk=True)
     except:
         n = await message.reply_photo(photo=random.choice(PICS), caption=script.NOT_FILE_TXT.format(message.from_user.mention, search), reply_markup=InlineKeyboardMarkup(btn))
-        await asyncio.sleep(60)
+        await asyncio.sleep(10)
         await n.delete()
         try:
             await message.delete()
@@ -1008,7 +1008,7 @@ async def advantage_spell_chok(message):
 
     if not movies:
         n = await message.reply_photo(photo=random.choice(PICS), caption=script.NOT_FILE_TXT.format(message.from_user.mention, search), reply_markup=InlineKeyboardMarkup(btn))
-        await asyncio.sleep(60)
+        await asyncio.sleep(10)
         await n.delete()
         try:
             await message.delete()
