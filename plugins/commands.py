@@ -172,12 +172,14 @@ async def start(client, message):
                 protect_content=settings['file_secure'],
                 reply_markup=InlineKeyboardMarkup(btn)
             )
-            btn = await client.send_message(chat_id = message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
+            btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
             await asyncio.sleep(300)
-            for x in settings:
-                await x.delete()
-                await btn.edit_text("<b>Your All Files/Videos is successfully deleted!!!</b>")
-            return
+            try:
+                await btn_msg.delete()
+                await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+            except Exception as e:
+                print(f"An error occurred while deleting message: {e}")
+                return
 
     type_, grp_id, file_id = mc.split("_", 2)
     files_ = await get_file_details(file_id)
@@ -196,8 +198,9 @@ async def start(client, message):
                 InlineKeyboardButton("🥇 ʙᴜʏ 🥇", url=f"https://t.me/{temp.U_NAME}?start=plans")
             ]]
             await message.reply(f"📕Nᴀᴍᴇ ➠ : {files.file_name} \n\n🔗Sɪᴢᴇ ➠ : {get_size(files.file_size)}\n\n📂Fɪʟᴇ ʟɪɴᴋ ➠ : {link}\n\nNote: This message is deleted in 20 mins to avoid copyrights. Save the link to Somewhere else", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
-            await asyncio.sleep(600)
-            await btn.edit("<b>Your message is successfully deleted!!!</b>")
+            await asyncio.sleep(60)
+            await sent_message.delete()  # Delete the message after 20 mins
+            await message.reply("<b>Your message is successfully deleted!!!</b>")
             return
     else:
         pass
@@ -231,11 +234,13 @@ async def start(client, message):
         protect_content=settings['file_secure'],
         reply_markup=InlineKeyboardMarkup(btn)
     )
-    btn = await client.send_message(chat_id = message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
-    await asyncio.sleep(600)
-    for x in settings:
-        await x.delete()
-        await btn.edit_text("<b>Your All Files/Videos is successfully deleted!!!</b>")
+    btn_msg = await client.send_message(chat_id=message.from_user.id, text=f"<b><u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u></b>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i></b>(Due to Copyright Issues)</i>.\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>")
+    await asyncio.sleep(300)
+    try:
+        await btn_msg.delete()
+        await client.send_message(chat_id=message.from_user.id, text="<b>Your All Files/Videos is successfully deleted!!!</b>")
+    except Exception as e:
+        print(f"An error occurred while deleting message: {e}")
         return
 
 @Client.on_message(filters.command('index_channels') & filters.user(ADMINS))
