@@ -296,7 +296,7 @@ if mc.startswith('all'):
             reply_message = await message.reply('<u>❗️❗️❗️IMPORTANT❗️️❗️❗️</u>\n\nThis Movie Files/Videos will be deleted in <b><u>10 mins</u> 🫥 <i>(Due to Copyright Issues)</i>.</b>\n\n<b><i>Please forward this ALL Files/Videos to your Saved Messages and Start Download there</i></b>')
     
     # Schedule the deletion of the reply and the sent messages after 10 minutes
-    await asyncio.sleep(600)  # 10 minutes = 600 seconds
+    await asyncio.sleep(30)  # 10 minutes = 600 seconds
     try:
         message_ids = [sent_message.message_id for sent_message in sent_messages] + [reply_message.message_id]
         await client.delete_messages(chat_id=message.chat.id, message_ids=message_ids)
