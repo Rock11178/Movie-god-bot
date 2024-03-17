@@ -251,7 +251,8 @@ if mc.startswith('all'):
     _, grp_id, key = mc.split("_", 2)
     files = temp.FILES.get(key)
     if not files:
-        return await message.reply('No Such All Files Exist!')
+        await message.reply('No Such All Files Exist!')
+        return  # Correct indentation for return statement
     settings = await get_settings(int(grp_id))
     
     reply_message = None
