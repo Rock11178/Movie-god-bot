@@ -217,7 +217,7 @@ if mc.startswith('all'):
         file_caption=files.caption
     )
     if settings.get('is_stream', IS_STREAM):
-    btn = [[
+        btn = [[
         InlineKeyboardButton("✛ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ✛", callback_data=f"stream#{file_id}")
     ],[
         InlineKeyboardButton('⚡️ ᴜᴘᴅᴀᴛᴇs ⚡️', url=UPDATES_LINK),
