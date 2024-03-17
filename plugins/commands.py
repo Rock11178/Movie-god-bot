@@ -247,18 +247,21 @@ async def start(client, message):
                 print(f"An error occurred while deleting messages: {e}")
                 return
 
-@Client.on_message(filters.command('index_channels') & filters.user(ADMINS))
+@Client.on_message(filters.command("index_channels"))
 async def channels_info(bot, message):
     """Send basic information of index channels"""
+    user_id = message.from_user.id
+    if user_id not in ADMINS:
+        await message.delete()
+        return
     ids = INDEX_CHANNELS
     if not ids:
         return await message.reply("Not set INDEX_CHANNELS")
-
-    text = '**Indexed Channels:**\n\n'
+    text = "**Indexed Channels:**\n\n"
     for id in ids:
         chat = await bot.get_chat(id)
-        text += f'{chat.title}\n'
-    text += f'\n**Total:** {len(ids)}'
+        text += f"{chat.title}\n"
+    text += f"\n**Total:** {len(ids)}"
     await message.reply(text)
 
 @Client.on_message(filters.command('stats') & filters.user(ADMINS))
