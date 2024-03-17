@@ -136,13 +136,13 @@ async def start(client, message):
             )
             return
     
-if mc.startswith('all'):
-    _, grp_id, key = mc.split("_", 2)
-    files = temp.FILES.get(key)
-    if not files:
-        await message.reply('No Such All Files Exist!')
-        return
-    settings = await get_settings(int(grp_id))
+    if mc.startswith('all'):
+        _, grp_id, key = mc.split("_", 2)
+        files = temp.FILES.get(key)
+        if not files:
+            await message.reply('No Such All Files Exist!')
+            return
+        settings = await get_settings(int(grp_id))
     reply_message = None
     sent_message = None
     for file in files:
