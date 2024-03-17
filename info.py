@@ -48,10 +48,10 @@ else:
 INDEX_CHANNELS = [
     (
         int(index_channels)
-        if index_channels.startswith("-1001931435328 -1001952883830 -1002032241046")
+        if index_channels.startswith("")
         else index_channels
     )
-    for index_channels in environ.get("INDEX_CHANNELS", "-1002032241046").split()
+    for index_channels in environ.get("INDEX_CHANNELS", "-1001931435328 -1001952883830 -1002032241046").split()
 ]
 if len(INDEX_CHANNELS) == 0:
     print("Info - INDEX_CHANNELS is empty")
