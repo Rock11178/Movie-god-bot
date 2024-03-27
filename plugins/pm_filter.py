@@ -285,7 +285,7 @@ async def seasons_cb_handler(client: Client, query: CallbackQuery):
     await query.message.edit_text("<b>ɪɴ ᴡʜɪᴄʜ ʟᴀɴɢᴜᴀɢᴇ ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ, sᴇʟᴇᴄᴛ ʜᴇʀᴇ</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(btn))
 
 @Client.on_callback_query(filters.regex(r"^ses_search"))
-async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
+async def season_languages_cb_handler(client: Client, query: CallbackQuery):
     _, lang, key, offset, req = query.data.split("#")
     if int(req) != query.from_user.id:
         return await query.answer(f"Hello {query.from_user.first_name},\nDon't Click Other Results!", show_alert=True)
