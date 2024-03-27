@@ -97,7 +97,7 @@ MAX_BTN = int(environ.get('MAX_BTN', 10)) #don't change anything in Language
 LANGUAGES = [language.lower() for language in environ.get('LANGUAGES', 'english hindi telugu tamil kannada malayalam').split()]
 SEASONS = []
 for i in range(10):
-    SEASONS.append(f'SO{i+ 1}')
+    SEASONS.append(f'S0{i+ 1}')
 print(SEASONS)
 IMDB_TEMPLATE = environ.get("IMDB_TEMPLATE", script.IMDB_TEMPLATE)
 FILE_CAPTION = environ.get("FILE_CAPTION", script.FILE_CAPTION)
