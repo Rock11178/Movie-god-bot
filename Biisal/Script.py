@@ -4,7 +4,7 @@ class script(object):
 ɪ ᴀᴍ ᴘᴏᴡᴇʀ ғᴜʟʟ ᴀɪ ᴀᴜᴛᴏ ғɪʟᴛᴇʀ ʙᴏᴛ
 ɪ ᴀᴍ ᴘᴍ sʜᴏʀᴛɴᴇʀ-ʟɪɴᴋ ʙᴏᴛ
 
-ᴍᴀɴᴛᴀɪɴᴇᴅ ʙʏ : <a href="https://t.me/Biisal">Bɪɪsᴀʟ</a> 😏
+ᴍᴀɴᴛᴀɪɴᴇᴅ ʙʏ : <a href="https://t.me/shivacharan7773">𝙎𝙝𝙞𝙫𝙖</a> 😏
 ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ғɪʟᴛᴇʀ ʙᴏᴛ : <a href="https://t.me/Pm_link_yojana_bot">Pᴍ_ʟɪɴᴋ_ʏᴏᴊᴀɴᴀ_ʙᴏᴛ</a> (ғʀᴇᴇ)😊</b>"""
 
     
@@ -13,7 +13,7 @@ Hᴇʀᴇ Is Tʜᴇ Hᴇʟᴘ Fᴏʀ Mʏ Cᴏᴍᴍᴀɴᴅs.</b>"""
 
     ABOUT_TXT = """<b>
  ᴍʏ ɴᴀᴍᴇ : {}
- ᴄʀᴇᴀᴛᴏʀ : <a href='https://t.me/Biisal'>Bɪɪsᴀʟ</a>
+ ᴄʀᴇᴀᴛᴏʀ : <a href='https://t.me/shivacharan7773'>𝙎𝙝𝙞𝙫𝙖</a>
  ʟᴀɴɢᴜᴀɢᴇ : <a href='https://www.python.org/download/releases/3.0/'>ᴘʏᴛʜᴏɴ 3</a>
  ᴅᴀᴛᴀ ʙᴀsᴇ : <a href='https://www.mongodb.com/'>ᴍᴏɴɢᴏ ᴅʙ</a>
  ʜᴏsᴛᴇᴅ ᴏɴ  : <a href='https://www.heroku.com/'>Hᴇʀᴏᴋᴜ</a>
@@ -23,7 +23,7 @@ Hᴇʀᴇ Is Tʜᴇ Hᴇʟᴘ Fᴏʀ Mʏ Cᴏᴍᴍᴀɴᴅs.</b>"""
 <b>Sᴏʀʀʏ Sᴏᴜʀᴄᴇ Cᴏᴅᴇ Oғ Tʜɪs Bᴏᴛ ɪs Pʀɪᴠᴀᴛᴇ 
 Aᴅᴅ Tʜɪs Bᴏᴛ ɪɴ Yᴏᴜʀ Gʀᴏᴜᴘ Aɴᴅ Usᴇ Lɪᴋᴇ Yᴏᴜʀs😊
 </b>
-<b>Cᴏɴᴛᴀᴄᴛ Aᴅᴍɪɴ : @Biisal</b>
+<b>Cᴏɴᴛᴀᴄᴛ Aᴅᴍɪɴ : @Shivacharan7773</b>
 """
 
     MANUELFILTER_TXT = """ʜᴇʟᴘ: <b>ꜰɪʟᴛᴇʀꜱ</b>
