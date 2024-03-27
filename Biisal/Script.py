@@ -5,7 +5,7 @@ class script(object):
 ɪ ᴀᴍ ᴘᴍ sʜᴏʀᴛɴᴇʀ-ʟɪɴᴋ ʙᴏᴛ
 
 ᴍᴀɴᴛᴀɪɴᴇᴅ ʙʏ : <a href="https://t.me/shivacharan7773">𝙎𝙝𝙞𝙫𝙖</a> 😏
-ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ғɪʟᴛᴇʀ ʙᴏᴛ : <a href="https://t.me/Pm_link_yojana_bot">Pᴍ_ʟɪɴᴋ_ʏᴏᴊᴀɴᴀ_ʙᴏᴛ</a> (ғʀᴇᴇ)😊</b>"""
+ᴏᴜʀ ᴄʜᴀɴɴᴇʟ ғɪʟᴛᴇʀ ʙᴏᴛ : <a href="https://t.me/aimoviefilterbot">click here</a> (ғʀᴇᴇ)😊</b>"""
 
     
     HELP_TXT = """<b>Hᴇʏ {}
