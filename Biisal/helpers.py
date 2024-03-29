@@ -125,7 +125,7 @@ async def force_sub(bot, message):
 
 
 async def chnl_force_sub(bot, message):
-    target_channel_id = -1001734958816  # Your channel ID
+    target_channel_id = -1002103005544  # Your channel ID
     user_id = message.from_user.id
 
     try:
