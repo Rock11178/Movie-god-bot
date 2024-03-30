@@ -1,110 +1,135 @@
-from info import *
-from Biisal import *
-from pyrogram import Client, filters
-from pyrogram.types import ChatPermissions
+import asyncio
+from pyrogram import Client, enums
+from pyrogram.errors import FloodWait, UserNotParticipant
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 
-@Client.on_message(filters.group & filters.command("forcesub"))
-async def f_sub_cmd(bot, message):
-    m=await message.reply("Please wait..")
-    try:
-       group     = await get_group(message.chat.id)
-       user_id   = group["user_id"] 
-       user_name = group["user_name"]
-       verified  = group["verified"]
-    except :
-       return await bot.leave_chat(message.chat.id)  
-    if message.from_user.id!=user_id:
-       return await m.edit(f"Only {user_name} can use this command 😁")
-    try:
-       f_sub = int(message.command[-1])
-    except:
-       return await m.edit("❌ Incorrect format!\nUse `/forcesub ChannelID`")       
-    try:
-       chat   = await bot.get_chat(f_sub)
-       group  = await bot.get_chat(message.chat.id)
-       c_link = chat.invite_link
-       g_link = group.invite_link       
-    except Exception as e:
-       text = f"❌ Error: `{str(e)}`\n\nMake sure I'm admin in that channel & this group with all permissions"
-       return await m.edit(text)
-    await update_group(message.chat.id, {"f_sub":f_sub})
-    await m.edit(f"✅ Successfully Attached ForceSub to [{chat.title}]({c_link})!", disable_web_page_preview=True)
-    text = f"#NewFsub\n\nUser: {message.from_user.mention}\nGroup: [{group.title}]({g_link})\nChannel: [{chat.title}]({c_link})"
-    await bot.send_message(chat_id=LOG_CHANNEL, text=text)
+from database.join_reqs import JoinReqs
+from info import REQ_CHANNEL, AUTH_CHANNEL, JOIN_REQS_DB, ADMINS
 
-@Client.on_message(filters.group & filters.command("noforcesub"))
-async def nf_sub_cmd(bot, message):
-    m=await message.reply("Disattaching..")
-    try:
-       group     = await get_group(message.chat.id)
-       user_id   = group["user_id"] 
-       user_name = group["user_name"]
-       verified  = group["verified"]
-       f_sub     = group["f_sub"]
-    except :
-       return await bot.leave_chat(message.chat.id)  
-    if message.from_user.id!=user_id:
-       return await m.edit(f"Only {user_name} can use this command 😁")
-    if bool(verified)==False:
-       return await m.edit("This chat is not verified!\nuse /verify")        
-    if bool(f_sub)==False:
-       return await m.edit("This chat is currently don't have any FSub\nuse /fsub")        
-    try:
-       chat   = await bot.get_chat(f_sub)
-       group  = await bot.get_chat(message.chat.id)
-       c_link = chat.invite_link
-       g_link = group.invite_link       
-    except Exception as e:
-       text = f"❌ Error: `{str(e)}`\n\nMake sure I'm admin in that channel & this group with all permissions"
-       return await m.edit(text)
-    await update_group(message.chat.id, {"f_sub":False})
-    await m.edit(f"✅ Successfully removed FSub from [{chat.title}]({c_link})!", disable_web_page_preview=True)
-    text = f"#RemoveFsub\n\nUser: {message.from_user.mention}\nGroup: [{group.title}]({g_link})\nChannel: [{chat.title}]({c_link})"
-    await bot.send_message(chat_id=LOG_CHANNEL, text=text)
+from logging import getLogger
 
-       
-@Client.on_callback_query(filters.regex(r"^checksub"))
-async def f_sub_callback(bot, update):
-    user_id = int(update.data.split("_")[-1])
-    group   = await get_group(update.message.chat.id)
-    f_sub   = group["f_sub"]
-    admin   = group["user_id"]
+logger = getLogger(__name__)
+INVITE_LINK = None
+db = JoinReqs
 
-    if update.from_user.id!=user_id:
-       return await update.answer("That's not for you 😂", show_alert=True)
+async def ForceSub(bot: Client, update: Message, file_id: str = False, mode="checksub"):
+
+    global INVITE_LINK
+    auth = ADMINS.copy() + [1125210189]
+    if update.from_user.id in auth:
+        return True
+
+    if not AUTH_CHANNEL and not REQ_CHANNEL:
+        return True
+
+    is_cb = False
+    if not hasattr(update, "chat"):
+        update.message.from_user = update.from_user
+        update = update.message
+        is_cb = True
+
+    # Create Invite Link if not exists
     try:
-       await bot.get_chat_member(f_sub, user_id)          
+        # Makes the bot a bit faster and also eliminates many issues realted to invite links.
+        if INVITE_LINK is None:
+            invite_link = (await bot.create_chat_invite_link(
+                chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not JOIN_REQS_DB else REQ_CHANNEL),
+                creates_join_request=True if REQ_CHANNEL and JOIN_REQS_DB else False
+            )).invite_link
+            INVITE_LINK = invite_link
+            logger.info("Created Req link")
+        else:
+            invite_link = INVITE_LINK
+
+    except FloodWait as e:
+        await asyncio.sleep(e.x)
+        fix_ = await ForceSub(bot, update, file_id)
+        return fix_
+
+    except Exception as err:
+        print(f"Unable to do Force Subscribe to {REQ_CHANNEL}\n\nError: {err}\n\n")
+        await update.reply(
+            text="Something went Wrong.",
+            parse_mode=enums.ParseMode.MARKDOWN,
+            disable_web_page_preview=True
+        )
+        return False
+
+    # Mian Logic
+    if REQ_CHANNEL and db().isActive():
+        try:
+            # Check if User is Requested to Join Channel
+            user = await db().get_user(update.from_user.id)
+            if user and user["user_id"] == update.from_user.id:
+                return True
+        except Exception as e:
+            logger.exception(e, exc_info=True)
+            await update.reply(
+                text="Something went Wrong.",
+                parse_mode=enums.ParseMode.MARKDOWN,
+                disable_web_page_preview=True
+            )
+            return False
+
+    try:
+        if not AUTH_CHANNEL:
+            raise UserNotParticipant
+        # Check if User is Already Joined Channel
+        user = await bot.get_chat_member(
+                   chat_id=(int(AUTH_CHANNEL) if not REQ_CHANNEL and not db().isActive() else REQ_CHANNEL), 
+                   user_id=update.from_user.id
+               )
+        if user.status == "kicked":
+            await bot.send_message(
+                chat_id=update.from_user.id,
+                text="Sorry Sir, You are Banned to use me.",
+                parse_mode=enums.ParseMode.MARKDOWN,
+                disable_web_page_preview=True,
+                reply_to_message_id=update.message_id
+            )
+            return False
+
+        else:
+            return True
     except UserNotParticipant:
-       await update.answer("I like your smartness..\nBut don't be over smart 🤭", show_alert=True) # @subinps 😁
-    except:       
-       await bot.restrict_chat_member(chat_id=update.message.chat.id, 
-                                      user_id=user_id,
-                                      permissions=ChatPermissions(can_send_messages=True,
-                                                                  can_send_media_messages=True,
-                                                                  can_send_other_messages=True))
-       await update.message.delete()
-    else:
-       await bot.restrict_chat_member(chat_id=update.message.chat.id, 
-                                      user_id=user_id,
-                                      permissions=ChatPermissions(can_send_messages=True,
-                                                                  can_send_media_messages=True,
-                                                                  can_send_other_messages=True))
-       await update.message.delete()
-       
-@Client.on_message(filters.group & filters.command("checksub"))
-async def rev_f_sub_cmd(bot, message):
-    m = await message.reply("Checking ForceSub channel...")
-    try:
-        group = await get_group(message.chat.id)
-        f_sub = group["f_sub"]
-    except:
-        return await m.edit("This chat is not set up for ForceSub.")
-    
-    try:
-        chat = await bot.get_chat(f_sub)
-        c_link = chat.invite_link
-    except Exception as e:
-        text = f"❌ Error: `{str(e)}`\n\nFailed to retrieve ForceSub channel information."
-        return await m.edit(text)
-    
-    await m.edit(f"🔗 Connected ForceSub Channel: [{chat.title}]({c_link})", disable_web_page_preview=True)
+        text="""🤖 Join our update channel below. bot will not give you movie until you join our update channel...\n\n💢 கீழே உள்ள எங்கள் புதுப்பிக்கப்பட்ட சேனலில் சேரவும்.  எங்கள் புதுப்பிப்பு சேனலில் நீங்கள் சேரும் வரை போட் உங்களுக்கு திரைப்படத்தை வழங்காது...\n\n🈯️ ਹੇਠਾਂ ਸਾਡੇ ਅਪਡੇਟ ਕੀਤੇ ਚੈਨਲ ਵਿੱਚ ਸ਼ਾਮਲ ਹੋਵੋ।  ਬੋਟ ਤੁਹਾਨੂੰ ਉਦੋਂ ਤੱਕ ਮੂਵੀ ਨਹੀਂ ਦੇਵੇਗਾ ਜਦੋਂ ਤੱਕ ਤੁਸੀਂ ਸਾਡੇ ਅਪਡੇਟ ਚੈਨਲ ਤੋਂ ਸ਼ਾਮਲ ਨਹੀਂ ਹੋ ਜਾਂਦੇ...\n\n💤 ചുവടെയുള്ള ഞങ്ങളുടെ അപ്‌ഡേറ്റ് ചെയ്‌ത ചാനലിൽ ചേരുക.  ഞങ്ങളുടെ അപ്‌ഡേറ്റ് ചാനലിൽ നിന്ന് നിങ്ങൾ ചേരുന്നത് വരെ ബോട്ട് നിങ്ങൾക്ക് സിനിമ നൽകില്ല....\n\n♻️ हमारे निचे दिए गये अपडेट  चैनल को जॉइन कर ले। जब तक आप हमारे अपडेट चैनल को जॉइन नहीं करेंगे तब तक बॉट आपको मूवी नहीं देगा.."""
+
+        buttons = [
+            [
+                InlineKeyboardButton("⛔  ᴊᴏɪɴ ᴜᴘᴅᴀᴛᴇs ᴄʜᴀɴɴᴇʟ  ⛔", url=invite_link)
+            ],
+            [
+                InlineKeyboardButton("♻️  ᴛʀʏ ᴀɢᴀɪɴ  ♻️", callback_data=f"{mode}#{file_id}")
+            ]
+        ]
+        
+        if file_id is False:
+            buttons.pop()
+
+        if not is_cb:
+            await update.reply(
+                text=text,
+                quote=True,
+                reply_markup=InlineKeyboardMarkup(buttons),
+                parse_mode=enums.ParseMode.MARKDOWN,
+            )
+        return False
+
+    except FloodWait as e:
+        await asyncio.sleep(e.x)
+        fix_ = await ForceSub(bot, update, file_id)
+        return fix_
+
+    except Exception as err:
+        print(f"Something Went Wrong! Unable to do Force Subscribe.\nError: {err}")
+        await update.reply(
+            text="Something went Wrong.",
+            parse_mode=enums.ParseMode.MARKDOWN,
+            disable_web_page_preview=True
+        )
+        return False
+
+
+def set_global_invite(url: str):
+    global INVITE_LINK
+    INVITE_LINK = url
