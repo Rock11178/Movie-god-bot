@@ -67,9 +67,9 @@ CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHAN
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
 PREMIUM_USER = [int(user) if id_pattern.search(user) else user for user in environ.get('PREMIUM_USER', '6093349648 5397984467 804446108').split()]
-# auth_channel = environ.get('AUTH_CHANNEL')
+auth_channel = environ.get('AUTH_CHANNEL')
 auth_grp = environ.get('AUTH_GROUP', '')
-# AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
+AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
 support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1002107123117')
 reqst_channel = environ.get('REQST_CHANNEL_ID',  '-1002103005544')
@@ -85,12 +85,12 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # FSUB  By - Vansh Yadav ()
 #auth_channel = environ.get('AUTH_CHANNEL')
-auth_channel = environ.get('AUTH_CHANNEL', '-1002103005544')
-AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
+# auth_channel = environ.get('AUTH_CHANNEL', '-1002103005544')
+# AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
-REQ_CHANNEL = environ.get("REQ_CHANNEL", "-1001805001702")
-REQ_CHANNEL = int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False
-JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
+# REQ_CHANNEL = environ.get("REQ_CHANNEL", "-1001805001702")
+# REQ_CHANNEL = int(REQ_CHANNEL) if REQ_CHANNEL and id_pattern.search(REQ_CHANNEL) else False
+# JOIN_REQS_DB = environ.get("JOIN_REQS_DB", DATABASE_URI)
 
 
 # Others
