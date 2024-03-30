@@ -29,88 +29,88 @@ BATCH_FILES = {}
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
-        buttons = [[
-                    InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton("Uᴘᴅᴀᴛᴇ Cʜᴀɴɴᴇʟ", url=CHNL_LNK),
-                    InlineKeyboardButton("Uᴘᴅᴀᴛᴇ ɢʀᴏᴜᴘ", url=GRP_LNK),
-                ],[
-                    InlineKeyboardButton('👻 ʜᴇʟᴘ', url=f'https://t.me/{temp.U_NAME}?start=')
-                ]]
+        buttons = [
+            [
+                InlineKeyboardButton('🤖  ᴜᴘᴅᴀᴛᴇꜱ  🤖', url="https://t.me/rtx_backup")
+            ]
+            ]
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply(script.START_TXT.format(message.from_user.mention if message.from_user else message.chat.title, temp.U_NAME, temp.B_NAME), reply_markup=reply_markup, disable_web_page_preview=True)
+        await message.reply_sticker(sticker=random.choice(STICKERS), reply_markup=reply_markup)
         await asyncio.sleep(2) # 😢 https://github.com/EvamariaTG/EvaMaria/blob/master/plugins/p_ttishow.py#L17 😬 wait a bit, before checking.
         if not await db.get_chat(message.chat.id):
             total=await client.get_chat_members_count(message.chat.id)
-            await client.send_message(NEW_USER_LOG, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
+            await client.send_message(LOG_CHANNEL, script.LOG_TEXT_G.format(message.chat.title, message.chat.id, total, "Unknown"))       
             await db.add_chat(message.chat.id, message.chat.title)
         return 
     if not await db.is_user_exist(message.from_user.id):
         await db.add_user(message.from_user.id, message.from_user.first_name)
-        await client.send_message(NEW_USER_LOG, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
+        await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     if len(message.command) != 2:
         buttons = [[
-                    InlineKeyboardButton('☆ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ☆', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton("Uᴘᴅᴀᴛᴇ Cʜᴀɴɴᴇʟ", url=CHNL_LNK),
-                    InlineKeyboardButton("ᴍᴏᴠɪᴇ ɢʀᴏᴜᴘ", url=GRP_LNK),
-                ],[
-                    InlineKeyboardButton('👻 ʜᴇʟᴘ', callback_data='help'),
-                    InlineKeyboardButton('👾 ᴀʙᴏᴜᴛ', callback_data='about')
-                ],[
-                    InlineKeyboardButton('💰 ᴇᴀʀɴ ᴍᴏɴᴇʏ ᴡɪᴛʜ ʙᴏᴛ 💸', callback_data="shortlink_info")
-                  ],[
-                    InlineKeyboardButton('🚫  ᴅᴍᴄᴀ', url="https://telegra.ph/Contant-RemovalDMCA-07-30"),
-                    InlineKeyboardButton('Fᴏʀᴄᴇ Sᴜʙ 🚩', callback_data='forcesub')
-
-                ]]
+            InlineKeyboardButton('🔸 𝑨𝒅𝒅 𝑴𝒆 𝑻𝒐 𝒀𝒐𝒖𝒓 𝑮𝒓𝒐𝒖𝒑 🔹', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+            ],[
+            InlineKeyboardButton('𝑶𝒘𝒏𝒆𝒓​', callback_data='owner_info'),
+            InlineKeyboardButton('𝑺𝒖𝒑𝒑𝒐𝒓𝒕', callback_data='group_info')
+            ],[
+            InlineKeyboardButton('𝑯𝒆𝒍𝒑', callback_data='sorryx'),
+            InlineKeyboardButton('𝑨𝒃𝒐𝒖𝒕', callback_data='about'),
+            InlineKeyboardButton('𝑰𝒏𝒍𝒊𝒏𝒆 𝑺𝒆𝒂𝒄𝒉', switch_inline_query_current_chat='')
+            ],[
+            InlineKeyboardButton('🔰  𝑩𝒖𝒚 𝑷𝒓𝒆𝒎𝒊𝒖𝒎  🔰', callback_data='shortlink_info')
+        ]]    
         reply_markup = InlineKeyboardMarkup(buttons)
-        await message.reply_video(
-            video=random.choice(PICS),
+        m=await message.reply_text("👀")
+        await asyncio.sleep(1)
+        await m.delete()
+        m=await message.reply_text("Sᴛᴀʀᴛɪɴɢ....")
+        await asyncio.sleep(1)
+        await m.delete()
+        m=await message.reply_text("⚡")
+        await asyncio.sleep(1)
+        await m.delete()
+        m=await message.reply_sticker("CAACAgIAAxkBAAEBX4RlH6KWlmN63-NAKmqJrDfX_qB1DgACVAADQbVWDGq3-McIjQH6HgQ") 
+        await asyncio.sleep(1)
+        await m.delete()
+        await message.reply_photo(
+            photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
         return
-    if AUTH_CHANNEL and not await is_subscribed(client, message):
-        try:
-            invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL))
-        except ChatAdminRequired:
-            logger.error("Make sure Bot is admin in Forcesub channel")
-            return
-        btn = [
-            [
-                InlineKeyboardButton(
-                    "Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ", url=invite_link.invite_link
-                )
-            ]
-        ]
 
-        if message.command[1] != "subscribe":
-            try:
-                kk, file_id = message.command[1].split("_", 1)
-                pre = 'checksubp' if kk == 'filep' else 'checksub' 
-                btn.append([InlineKeyboardButton(" 🔄 Try Again", callback_data=f"{pre}#{file_id}")])
-            except (IndexError, ValueError):
-                btn.append([InlineKeyboardButton(" 🔄 Try Again", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
-        await client.send_message(
-            chat_id=message.from_user.id,
-            text="**🌟Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ\n🌟Cᴀᴍᴇ Bᴀᴄᴋ Aɴᴅ Cʟɪᴄᴋ Tʀʏ Aɢᴀɪɴ\n🌟Yᴏᴜ Wɪʟʟ Gᴇᴛ Yᴏᴜʀ Fɪʟᴇs 👍🏻**",
-            reply_markup=InlineKeyboardMarkup(btn),
-            parse_mode=enums.ParseMode.MARKDOWN
-            )
+    if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help", "start", "hehe"]:
+        if message.command[1] == "subscribe":
+            await ForceSub(bot, message)
+
         return
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
         buttons = [[
-            InlineKeyboardButton('× ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘs ×', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
+            InlineKeyboardButton('🔸 𝑨𝒅𝒅 𝑴𝒆 𝑻𝒐 𝒀𝒐𝒖𝒓 𝑮𝒓𝒐𝒖𝒑 🔹', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+            ],[
+            InlineKeyboardButton('𝑶𝒘𝒏𝒆𝒓​', callback_data='owner_info'),
+            InlineKeyboardButton('𝑺𝒖𝒑𝒑𝒐𝒓𝒕', callback_data='group_info')
+            ],[
+            InlineKeyboardButton('𝑯𝒆𝒍𝒑', callback_data='sorryx'),
+            InlineKeyboardButton('𝑨𝒃𝒐𝒖𝒕', callback_data='about'),
+            InlineKeyboardButton('𝑰𝒏𝒍𝒊𝒏𝒆 𝑺𝒆𝒂𝒄𝒉', switch_inline_query_current_chat='')
+            ],[
+            InlineKeyboardButton('🔰  𝑩𝒖𝒚 𝑷𝒓𝒆𝒎𝒊𝒖𝒎  🔰', callback_data='shortlink_info')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await message.reply_photo(
             photo=random.choice(PICS),
-            caption=script.SUR_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
+            caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
+        return
+
+    kk, file_id = message.command[1].split("_", 1) if "_" in message.command[1] else (False, False)
+    pre = ('checksubp' if kk == 'filep' else 'checksub') if kk else False
+
+    status = await ForceSub(client, message, file_id=file_id, mode=pre)
+    if not status:
         return
     data = message.command[1]
     try:
