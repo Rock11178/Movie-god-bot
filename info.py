@@ -47,9 +47,9 @@ REPO_OWNER = "Biisal"
 
 # Bot information
 SESSION = environ.get('SESSION', 'Media_search')
-API_ID = int(environ.get('API_ID', '20725471'))
-API_HASH = environ.get('API_HASH', '7d32846e37e769270e94b6085b61bebf')
-BOT_TOKEN = environ.get('BOT_TOKEN', "6719328690:AAH8__XIctQL6MadGXX2EzjcJIiqBDkaJNM")
+API_ID = int(environ.get('API_ID', '27607490'))
+API_HASH = environ.get('API_HASH', '1495e09b9614aa79a60839b9aae1a1fe')
+BOT_TOKEN = environ.get('BOT_TOKEN', "6712391636:AAEcCuF6PqsLnOyzaDo_S7hJ5y8MXwG1g_k")
 STICKERS_IDS = ('CAACAgQAAxkBAAEK99dlfC7LDqnuwtGRkIoacot_dGC4zQACbg8AAuHqsVDaMQeY6CcRojME').split()
 
 # Bot settings
@@ -62,30 +62,30 @@ MELCOW_VID = environ.get("MELCOW_VID", "https://te.legra.ph/file/6f55d902f9bf2d0
 SPELL_IMG = environ.get("SPELL_IMG", "https://te.legra.ph/file/15c1ad448dfe472a5cbb8.jpg")
 
 # Admins, Channels & Users
-ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6093349648 5397984467').split()]
-CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1001931435328 -1001952883830 -1002032241046').split()]
+ADMINS = [int(admin) if id_pattern.search(admin) else admin for admin in environ.get('ADMINS', '6093349648 5253420752').split()]
+CHANNELS = [int(ch) if id_pattern.search(ch) else ch for ch in environ.get('CHANNELS', '-1002118037105').split()]
 auth_users = [int(user) if id_pattern.search(user) else user for user in environ.get('AUTH_USERS', '').split()]
 AUTH_USERS = (auth_users + ADMINS) if auth_users else []
-PREMIUM_USER = [int(user) if id_pattern.search(user) else user for user in environ.get('PREMIUM_USER', '6093349648 5397984467 804446108').split()]
+PREMIUM_USER = [int(user) if id_pattern.search(user) else user for user in environ.get('PREMIUM_USER', '5253420752').split()]
 auth_channel = environ.get('AUTH_CHANNEL')
 auth_grp = environ.get('AUTH_GROUP', '')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
-support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1002107123117')
-reqst_channel = environ.get('REQST_CHANNEL_ID',  '-1002103005544')
+support_chat_id = environ.get('SUPPORT_CHAT_ID', '')
+reqst_channel = environ.get('REQST_CHANNEL_ID',  '-1002055195966')
 REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_channel) else None
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
 NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", False))
 
 # MongoDB information
-DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://shivamcharan7773:shivacharan7@cluster0.se91yp0.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+DATABASE_URI = environ.get('DATABASE_URI', "mongodb+srv://gurbhejbrar999:MlXaPI2dMQNxykn5@cluster0.tt0aoyc.mongodb.net/?retryWrites=true&w=majority")
 DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 
 # FSUB  By - Vansh Yadav ()
 #auth_channel = environ.get('AUTH_CHANNEL')
-# auth_channel = environ.get('AUTH_CHANNEL', '-1002103005544')
+# auth_channel = environ.get('AUTH_CHANNEL', '-1002055195966')
 # AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 # Set to False inside the bracket if you don't want to use Request Channel else set it to Channel ID
 # REQ_CHANNEL = environ.get("REQ_CHANNEL", "-1001805001702")
@@ -95,27 +95,27 @@ COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Files')
 
 # Others
 VERIFY = bool(environ.get('VERIFY', False))
-SHORTLINK_URL = environ.get('SHORTLINK_URL', 'omnifly.in.net')
-SHORTLINK_API = environ.get('SHORTLINK_API', '32eb93ad03c7a934f115dc145819844740bda00e')
-SECOND_SHORTLINK_URL = environ.get('SECOND_SHORTLINK_URL', 'omnifly.in.net')
-SECOND_SHORTLINK_API = environ.get('SECOND_SHORTLINK_API', '32eb93ad03c7a934f115dc145819844740bda00e')
+SHORTLINK_URL = environ.get('SHORTLINK_URL', 'modijiurl.com')
+SHORTLINK_API = environ.get('SHORTLINK_API', '7e64c97d572c1cbfc17dfe9f82bf372a0ccb194d')
+SECOND_SHORTLINK_URL = environ.get('SECOND_SHORTLINK_URL', 'modijiurl.com')
+SECOND_SHORTLINK_API = environ.get('SECOND_SHORTLINK_API', '7e64c97d572c1cbfc17dfe9f82bf372a0ccb194d')
 IS_SHORTLINK = bool(environ.get('IS_SHORTLINK', True))
-DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-100213281569').split()]
+DELETE_CHANNELS = [int(dch) if id_pattern.search(dch) else dch for dch in environ.get('DELETE_CHANNELS', '-1002018746275').split()]
 MAX_B_TN = environ.get("MAX_B_TN", "20")
 MAX_BTN = is_enabled((environ.get('MAX_BTN', "True")), True)
 PORT = environ.get("PORT", "8080")
-GRP_LNK = environ.get('GRP_LNK', 'https://t.me/movies_group7')
-CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/Moviehiap')
-TUTORIAL = environ.get('TUTORIAL', 'https://t.me/Moviehiap/42')#not added
+GRP_LNK = environ.get('GRP_LNK', 'https://t.me/yourmoviecom')
+CHNL_LNK = environ.get('CHNL_LNK', 'https://t.me/ONLINE_UPDATE_0')
+TUTORIAL = environ.get('TUTORIAL', 'https://t.me/how_to_open_link_0011/14')#not added
 IS_TUTORIAL = bool(environ.get('IS_TUTORIAL', True))
 MSG_ALRT = environ.get('MSG_ALRT', 'Kʏᴀ ʀᴇ Bʜɪᴋᴍᴀɴɢᴀ 😑,Kʏᴀ ᴅᴇᴋʜ ʀᴀʜᴀ ʜᴀɪ ?')
 
-LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1002083165096'))
-VERIFY_REQ_CHNL = int(environ.get('VERIFY_REQ_CHNL', '-1002083165096'))
-NEW_USER_LOG = int(environ.get('NEW_USER_LOG', '-1002083165096'))
-BIN_CHNL = int(environ.get('BIN_CHNL', '-1001819881264'))
+LOG_CHANNEL = int(environ.get('LOG_CHANNEL', '-1001992749904'))
+VERIFY_REQ_CHNL = int(environ.get('VERIFY_REQ_CHNL', '-1001992749904'))
+NEW_USER_LOG = int(environ.get('NEW_USER_LOG', '-1001992749904'))
+BIN_CHNL = int(environ.get('BIN_CHNL', '1002104075331'))
 
-SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Shivasupport')
+SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'yourmoviecom')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
 IMDB = is_enabled((environ.get('IMDB', "False")), False)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
