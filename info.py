@@ -71,7 +71,7 @@ auth_channel = environ.get('AUTH_CHANNEL')
 auth_grp = environ.get('AUTH_GROUP', '')
 AUTH_CHANNEL = int(auth_channel) if auth_channel and id_pattern.search(auth_channel) else None
 AUTH_GROUPS = [int(ch) for ch in auth_grp.split()] if auth_grp else None
-support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1002103005544')
+support_chat_id = environ.get('SUPPORT_CHAT_ID', '-1002107123117')
 reqst_channel = environ.get('REQST_CHANNEL_ID',  '-1002103005544')
 REQST_CHANNEL = int(reqst_channel) if reqst_channel and id_pattern.search(reqst_channel) else None
 SUPPORT_CHAT_ID = int(support_chat_id) if support_chat_id and id_pattern.search(support_chat_id) else None
@@ -104,7 +104,7 @@ VERIFY_REQ_CHNL = int(environ.get('VERIFY_REQ_CHNL', '-1002083165096'))
 NEW_USER_LOG = int(environ.get('NEW_USER_LOG', '-1002083165096'))
 BIN_CHNL = int(environ.get('BIN_CHNL', '-1001819881264'))
 
-SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Moviehiap')
+SUPPORT_CHAT = environ.get('SUPPORT_CHAT', 'Shivasupport')
 P_TTI_SHOW_OFF = is_enabled((environ.get('P_TTI_SHOW_OFF', "True")), True)
 IMDB = is_enabled((environ.get('IMDB', "False")), False)
 AUTO_FFILTER = is_enabled((environ.get('AUTO_FFILTER', "True")), True)
