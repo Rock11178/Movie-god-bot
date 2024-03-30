@@ -1649,7 +1649,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             f_caption = f"{files.file_name}"
 
         try:
-            if AUTH_CHANNEL and not await is_subscribed(client, query):
+            if (AUTH_CHANNEL or REQ_CHANNEL) and not await is_subscribed(client, query):
                 if clicked == typed:
                     await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start={ident}_{file_id}")
                     return
@@ -1745,7 +1745,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         await query.answer(url=f"https://telegram.me/{temp.U_NAME}?start=file_{file_id}")
     
     elif query.data.startswith("checksub"):
-        if AUTH_CHANNEL and not await is_subscribed(client, query):
+        if (AUTH_CHANNEL or REQ_CHANNEL) and not await is_subscribed(client, query):
             await query.answer("Jᴀʟᴅɪ Yᴀʜᴀɴ Sᴇ Hᴀᴛʜᴏ...📢\nJᴏɪɴ Bᴀᴄᴋᴜᴘ Cʜᴀɴɴᴇʟ Fɪʀsᴛ 😒",
                 show_alert=True,
             )
