@@ -103,26 +103,25 @@ async def pm_text(bot, message):
     content = message.text
     user = message.from_user.first_name
     user_id = message.from_user.id
+
     if content.startswith("/") or content.startswith("#"):
-        return
-        if user_id in ADMINS:
-            return  # ignore admins
-            await message.reply_text(
-                text=f"<b>Nᴀᴍᴀsᴛʜᴇ {message.from_user.mention} Jɪ 😍 ,\n\nɪ ᴄᴀɴᴛ ɢɪᴠᴇ ᴍᴏᴠɪᴇ ʜᴇʀᴇ\nʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ <a href=\"https://t.me/movies_group7">ʜᴇʀᴇ</a> ᴏʀ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛᴏ ᴜsᴇ ᴍᴇ</b>",
-                reply_markup=InlineKeyboardMarkup(
-                    [
-                        [
-                            InlineKeyboardButton(
-                                "ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 😊", url=f"https://t.me/movies_group7"
-                            )
-                        ]
-                    ]
-                ),
-            )
-            await bot.send_message(
-                chat_id=BF_LOGS,
-                text=f"<b>#𝐏𝐌_𝐌𝐄𝐒𝐒𝐀𝐆𝐄 Jai Shree Ram 🚩\n\nNᴀᴍᴇ : {user}\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}\n\n</b>",
-            )
+        return  # Ignore commands and hashtags
+
+    if user_id in ADMINS:
+        return  # Ignore admins
+
+    await message.reply_text(
+        text=f"<b>Nᴀᴍᴀsᴛʜᴇ {message.from_user.mention} Jɪ  ,\n\nɪ ᴄᴀɴᴛ ɢɪᴠᴇ ᴍᴏᴠɪᴇ ʜᴇʀᴇ\nʏᴏᴜ ᴄᴀɴ ʀᴇǫᴜᴇsᴛ <a href=\"https://t.me/movies_group7\">ʜᴇʀᴇ</a> ᴏʀ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛᴏ ᴜsᴇ ᴍᴇ</b>",
+        reply_markup=InlineKeyboardMarkup(
+            [[InlineKeyboardButton("ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/movies_group7")]]
+        )
+    )
+
+    await bot.send_message(
+        chat_id=BF_LOGS,
+        text=f"<b>#𝐏𝐌_𝐌𝐄𝐒𝐒𝐀𝐆𝐄 Jai Shree Ram \n\nNᴀᴍᴇ : {user}\nID : {user_id}\n\nMᴇssᴀɢᴇ : {content}\n\n</b>"
+    )
+
 
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(client, msg, spoll=False):
